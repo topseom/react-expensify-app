@@ -25,6 +25,7 @@ module.exports = {
     },
     devtool: 'cheap-module-eval-source-map', // for debug when is error have file deverlop mode
     devServer: {
-        contentBase: path.join(__dirname,'public') // it store in memory for fast load
+        contentBase: path.join(__dirname,'public'), // it store in memory for fast load
+        historyApiFallback: true
     }
 };
