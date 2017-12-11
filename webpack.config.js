@@ -4,7 +4,7 @@ const path = require('path');
 //babel-core like babel-cli it for webpack use
 //babel-loader is teach webpack how to run babel
 module.exports = {
-    entry: './src/playground/destructuring.js',
+    entry: './src/playground/redux-expensify.js',
     output: {
         path: path.join(__dirname,'public'),
         filename: 'bundle.js'

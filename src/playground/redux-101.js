@@ -1,17 +1,41 @@
 import { createStore } from 'redux';
 
-const store = createStore((state = { count:0 }, action)=>{
+// Action generators - functions that return action objects
+
+
+const incrementCount = ({ incrementBy=1 } = {}) =>({
+    type:'INCREMENT',
+    incrementBy
+});
+
+const decrementCount = ({ decrementBy=1 } = {}) =>({
+    type:'DECREMENT',
+    decrementBy
+});
+
+const setCount = ({count=0} ={})=>({
+    type:'SET',
+    count
+});
+
+const resetCount = () =>({
+    type:'RESET'
+});
+
+// Reducer
+// 1. reducer is pure function
+// 2. never change state or action
+
+const countReducer = (state = { count:0 }, action)=>{
     //console.log("running..");
     switch(action.type){
         case "INCREMENT":
-            const incrementBy = typeof action.incrementBy === "number" ? action.incrementBy : 1;
             return {
-                count:state.count+incrementBy
+                count:state.count+action.incrementBy
             };
         case "DECREMENT":
-            const decrementBy = typeof action.decrementBy === "number" ? action.decrementBy : 1;
             return {
-                count:state.count-decrementBy
+                count:state.count-action.decrementBy
             };
         case "SET":
             const count = typeof action.count === "number" ? action.count : 0;
@@ -25,39 +49,25 @@ const store = createStore((state = { count:0 }, action)=>{
         default:
             return state;
     }
-    
-});
+};
+
+const store = createStore(countReducer);// this function it call 'reducers' 
 
 const unsubscribe = store.subscribe(()=>{
     console.log(store.getState());
 });
 
-store.dispatch({
-    type: "INCREMENT",
-    incrementBy:5
-});
+store.dispatch(incrementCount({incrementBy:5}));
 
-store.dispatch({
-    type: "INCREMENT"
-});
+store.dispatch(incrementCount());
 
-store.dispatch({
-    type: "RESET"
-});
+store.dispatch(resetCount());
 
-store.dispatch({
-    type: "DECREMENT",
-    decrementBy:10
-});
+store.dispatch(decrementCount({decrementBy:10}));
 
-store.dispatch({
-    type: "DECREMENT"
-});
+store.dispatch(decrementCount());
 
-store.dispatch({
-    type: "SET",
-    count:101
-});
+store.dispatch(setCount({count:101}));
 
 
 
