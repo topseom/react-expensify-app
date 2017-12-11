@@ -26,7 +26,15 @@ const addExpense = (
 const removeExpense = ({id}={})=> (
     {
         type: 'REMOVE_EXPENSE',
-        id:id
+        id
+    }
+);
+
+const editExpense = (id,update)=> (
+    {
+        type: 'EDITE_EXPENSE',
+        id,
+        update
     }
 );
 
@@ -41,11 +49,27 @@ const expensesReducer = (state = expensesReducerDefaultState,action)=>{
             ];
         case "REMOVE_EXPENSE":
             return state.filter(({id})=>id !== action.id);
+        case "EDITE_EXPENSE":
+            return state.map((expense)=>{
+                if(expense.id === action.id){
+                    return {
+                        ...expense,
+                        ...action.update
+                    };
+                }else{
+                    return expense;
+                }
+            })
         default:
             return state;
     }
 };
 
+
+const setTextFilter = (text='')=>({
+    type:"EDIT_TEXT_FILTER",
+    text
+});
 const filtersReducerDefaultState = {
     text:'',
     sortBy:'date',
@@ -55,6 +79,11 @@ const filtersReducerDefaultState = {
 
 const filtersReducer = (state = filtersReducerDefaultState,action)=>{
     switch(action.type){
+        case "EDIT_TEXT_FILTER":
+            return {
+                ...state,
+                text:action.text
+            }
         default:
             return state;
     }
@@ -75,8 +104,10 @@ const expenseOne = store.dispatch(addExpense({description:"Rent", amount:100}));
 const expenseTwo = store.dispatch(addExpense({description:"Coffee", amount:300}));
 
 store.dispatch(removeExpense({id:expenseOne.expense.id}));
+store.dispatch(editExpense(expenseTwo.expense.id,{amount: 500,note:"edit note"}));
 
-console.log(expenseOne);
+store.dispatch(setTextFilter('rent'));
+store.dispatch(setTextFilter(''));
 
 const demoState = {
     expenses:[{
@@ -95,3 +126,19 @@ const demoState = {
 };
 
 //console.log(demoState);
+
+// array spread operator = [...array]
+
+// object spread operator
+// const user = {
+//     name: 'Jen',
+//     age: 24
+// };
+
+// console.log({
+//     ...user,
+//     location: 'Philadelphia',
+//     age:27
+// })
+
+// console.log(user);
