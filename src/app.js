@@ -17,14 +17,14 @@ const store = configureStore();
 //     console.log(getVisibleExpense(state.expenses,state.filters));
 // });
 
-setTimeout(()=>{
-    store.dispatch(setTextFilter("bill"));
-    //store.dispatch(addExpense({description:'AA bill'}));
-},3000);
+// setTimeout(()=>{
+//     store.dispatch(setTextFilter("bill"));
+// },3000);
 
 store.dispatch(addExpense({description:'Water bill',amount:4500}));
-store.dispatch(addExpense({description:'Gas bill',amount:3000}));
-store.dispatch(setTextFilter("water"));
+store.dispatch(addExpense({description:'Gas bill',createdAt:1000}));
+store.dispatch(addExpense({description:'Rent',amount:109500}));
+//store.dispatch(setTextFilter("water"));
 
 const state = store.getState();
 console.log(getVisibleExpense(state.expenses,state.filters));
