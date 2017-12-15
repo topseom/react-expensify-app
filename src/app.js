@@ -18,13 +18,13 @@ const store = configureStore();
 // });
 
 setTimeout(()=>{
-    store.dispatch(setTextFilter("water"));
-    store.dispatch(addExpense({description:'AA bill'}));
+    store.dispatch(setTextFilter("bill"));
+    //store.dispatch(addExpense({description:'AA bill'}));
 },3000);
 
-store.dispatch(addExpense({description:'Water bill'}));
-store.dispatch(addExpense({description:'Gas bill'}));
-store.dispatch(setTextFilter("bill"));
+store.dispatch(addExpense({description:'Water bill',amount:4500}));
+store.dispatch(addExpense({description:'Gas bill',amount:3000}));
+store.dispatch(setTextFilter("water"));
 
 const state = store.getState();
 console.log(getVisibleExpense(state.expenses,state.filters));
