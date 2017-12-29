@@ -13,7 +13,7 @@ module.exports = {
         rules:[{
             loader: 'babel-loader', // don't forget create .babelrc to presets
             test: /\.js$/,// file types loader on
-            exclude: '/node_modules/'
+            exclude: /node_modules/
         },{
             test:/\.s?css$/,
             use:[
@@ -28,4 +28,5 @@ module.exports = {
         contentBase: path.join(__dirname,'public'), // it store in memory for fast load
         historyApiFallback: true
     }
+    
 };
